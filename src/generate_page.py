@@ -3,7 +3,7 @@ from markdown_blocks import markdown_to_html_node
 
 def extract_title(markdown):    
     #open the file
-    with os.open(markdown, mode='r') as f:
+    with open(markdown, mode='r') as f:    
         #str_content = f.read()
         #alternatively, for line in f: f.readline() and test for the relevant content...
         for line in f.readline():
@@ -22,13 +22,13 @@ def extract_title(markdown):
 def generate_page(from_path, template_path, dest_path):    
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     
-    with os.open(template_path, mode='r') as template_file:                
+    with open(template_path, mode='r') as template_file:                
         str_template = template_file.read()
         if not template_file.closed:
             template_file.close()
     
     
-    with os.open(from_path, mode='r') as f:
+    with open(from_path, mode='r') as f:
         md_content = f.read()
         if not f.closed:
                 f.close()
@@ -43,6 +43,6 @@ def generate_page(from_path, template_path, dest_path):
         if not os.path.exists(dir_output):
             os.makedirs(dir_output)
 
-        with os.open(dest_path, mode='w') as file_output:
+        with open(dest_path, mode='w') as file_output:
             file_output.write(html_output)
         
