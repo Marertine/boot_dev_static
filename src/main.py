@@ -8,7 +8,7 @@ def main():
     if len(sys.argv) > 1:
         basepath = sys.argv[1]  # 1 because 0 = python3.exe
     else:
-        basepath = "./"
+        basepath = "/"
 
     dir_path_static = "./static"
     #dir_path_public = "./public"    
