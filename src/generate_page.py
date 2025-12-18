@@ -39,6 +39,8 @@ def generate_page(from_path, template_path, dest_path):
         str_title = extract_title(from_path)
         html_output = str_template.replace("{{ Title }}", str_title)
         html_output = html_output.replace("{{ Content }}", html_content)
+        html_output = html_output.replace('href="/', html_content)
+        html_output = html_output.replace('src="/', html_content)
 
         dir_output = os.path.dirname(dest_path)
         if not os.path.exists(dir_output):
@@ -48,13 +50,13 @@ def generate_page(from_path, template_path, dest_path):
             file_output.write(html_output)
         
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):    
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     print(f"Generating pages from {dir_path_content} to {dest_dir_path}")
 
     for item in os.listdir(dir_path_content):
         fully_pathed_item = os.path.join(dir_path_content, item)
         if os.path.isdir(fully_pathed_item):
-            generate_pages_recursive(fully_pathed_item, template_path, os.path.join(dest_dir_path, item))
+            generate_pages_recursive(fully_pathed_item, template_path, os.path.join(dest_dir_path, item), basepath)
         else:            
             if pathlib.Path(fully_pathed_item).suffix == ".md":
                 new_filename = os.path.join(dest_dir_path, item)
